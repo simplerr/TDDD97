@@ -38,8 +38,7 @@
 		</div>
 </script>
 
-<script id="profileview" type=”text/view”>
-<<<<<<< HEAD
+<script id="profileview" type="text/javascript">
 	<div id="navigation">
 		<ul>
 			<li><a href="#" onclick="showHome();">Home</a></li>
@@ -49,18 +48,24 @@
 	</div>
 	<div id="profcontent">
 		<div id="home">
-			<label>First name:</label> <br />
-			<label>Last name:</label>
+			<p>First name: <span id="firstname"></span></p>
+			<p>Last name: <label id="lastname"></label></p>	
+			<p>Email: <label id="email"></label></p>
+			<p>Gender: <label id="gender"></label></p>
+			<p>City: <label id="city"></label></p>
+			<p>Country: <label id="country"></label></p>
+			
 		</div>
 		<div id="browse">
-			you
+			<p>First name: <span id="firstname"></span></p>
+			<p>Last name: <label id="lastname"></label></p>	
+			<p>Email: <label id="email"></label></p>
+			<p>Gender: <label id="gender"></label></p>
+			<p>City: <label id="city"></label></p>
+			<p>Country: <label id="country"></label></p>
 		</div>
 		<div id="account">
-			there
-		</div>
-	</div>
-=======
-	<div id="changePasswod">
+			<div id="changePasswod">
 		<form name="changePasswordForm" onsubmit="changePassword()">
 			<input type="mail" placeholder="Old password" name="old_password" required><br />
 			<input type="password" placeholder="New Password" name="new_password1" required><br />
@@ -70,7 +75,9 @@
 	</div>
 	
 	<a href="#" onclick="logout()">Logout</a>
->>>>>>> f85cbc22a27bdbce53ca9eea615baa2114b442bd
+		</div>
+	</div>
+	
 </script>
 
 </head>
