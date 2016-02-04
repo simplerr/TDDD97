@@ -39,7 +39,16 @@
 </script>
 
 <script id="profileview" type=”text/view”>
-test view for profile
+	<div id="changePasswod">
+		<form name="changePasswordForm" onsubmit="changePassword()">
+			<input type="mail" placeholder="Old password" name="old_password" required><br />
+			<input type="password" placeholder="New Password" name="new_password1" required><br />
+			<input type="password" placeholder="New Password again" name="new_password2" required><br />
+			<input type="submit" value="change">
+		</form>
+	</div>
+	
+	<a href="#" onclick="logout()">Logout</a>
 </script>
 
 </head>
