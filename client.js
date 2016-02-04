@@ -8,7 +8,7 @@ window.onload = function() {
 	// you shall put your own sutom code here
 	//window.alert("Hello Mr cheeze Cracker");
 	
-	localStorage.clear();
+	//localStorage.clear();
 	loadView();
 }
 
@@ -58,4 +58,25 @@ function validateSignupForm() {
 	}
 	else
 		return false;
+}
+
+function showHome()
+{
+	document.getElementById("home").style.display = "block";
+	document.getElementById("browse").style.display = "none";
+	document.getElementById("account").style.display = "none";
+}
+
+function showBrowse()
+{
+	document.getElementById("home").style.display = "none";
+	document.getElementById("browse").style.display = "block";
+	document.getElementById("account").style.display = "none";
+}
+
+function showAccount()
+{
+	document.getElementById("home").style.display = "none";
+	document.getElementById("browse").style.display = "none";
+	document.getElementById("account").style.display = "block";
 }
