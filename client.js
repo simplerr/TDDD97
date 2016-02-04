@@ -17,6 +17,8 @@ function loadView() {
 		document.getElementById("content").innerHTML = document.getElementById("welcomeview").innerHTML;
 	else
 		document.getElementById("content").innerHTML = document.getElementById("profileview").innerHTML;
+	
+	showTab();
 }
 
 function changePassword() {
@@ -89,8 +91,34 @@ function validateSignupForm() {
 		return false;
 }
 
+function browseUser() {
+	var email = document.forms["browseUserForm"]["email"].value;
+	
+	var user = serverstub.getUserDataByToken(localStorage.getItem("token"));
+	alert(user.data.email);
+	
+	return true;
+}
+
+function showTab()
+{
+	var tab = localStorage.getItem("tab");
+	
+	if(tab == "home") {
+		showHome();
+	}
+	else if(tab == "browse") {
+		showBrowse();
+	}
+	else if(tab == "account") {
+		showAccount();
+	}
+}
+
 function showHome()
 {
+	localStorage.setItem("tab", "home");
+	
 	document.getElementById("home").style.display = "block";
 	document.getElementById("browse").style.display = "none";
 	document.getElementById("account").style.display = "none";
@@ -98,6 +126,8 @@ function showHome()
 
 function showBrowse()
 {
+	localStorage.setItem("tab", "browse");
+	
 	document.getElementById("home").style.display = "none";
 	document.getElementById("browse").style.display = "block";
 	document.getElementById("account").style.display = "none";
@@ -105,6 +135,8 @@ function showBrowse()
 
 function showAccount()
 {
+	localStorage.setItem("tab", "account");
+	
 	document.getElementById("home").style.display = "none";
 	document.getElementById("browse").style.display = "none";
 	document.getElementById("account").style.display = "block";
