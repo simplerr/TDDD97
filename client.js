@@ -103,6 +103,15 @@ function browseUser() {
 	document.getElementById("city_b").innerHTML = user.city;
 	document.getElementById("country_b").innerHTML = user.country;
 	
+	// add messages to the wall
+	var messages = serverstub.getUserMessagesByEmail(localStorage.getItem("token"), email).data;
+	
+	document.getElementById("messageWall_b").innerHTML = "";
+	for (i = 0; i < messages.length; i++) { 
+		document.getElementById("messageWall_b").innerHTML += messages[i].writer + ": ";
+		document.getElementById("messageWall_b").innerHTML += messages[i].content + "<br\><br\>";
+	}
+	
 	return true;
 }
 
@@ -121,6 +130,14 @@ function showTab()
 	}
 }
 
+function postMessage() 
+{
+	var message = document.forms["postMessageForm"]["message"].value;
+	var email = serverstub.getUserDataByToken(localStorage.getItem("token")).data.email;
+	
+	var result = serverstub.postMessage(localStorage.getItem("token"), message, email);
+}
+
 function showHome()
 {
 	localStorage.setItem("tab", "home");
@@ -137,7 +154,16 @@ function showHome()
 	document.getElementById("gender").innerHTML = user.gender;
 	document.getElementById("city").innerHTML = user.city;
 	document.getElementById("country").innerHTML = user.country;
-	document.getElementById("firstname").innerHTML = user.firstname;
+	
+	// add messages to the wall
+	var messages = serverstub.getUserMessagesByToken(localStorage.getItem("token")).data;
+	
+	document.getElementById("messageWall").innerHTML = "";
+	
+	for (i = 0; i < messages.length; i++) { 
+		document.getElementById("messageWall").innerHTML += messages[i].writer + ": ";
+		document.getElementById("messageWall").innerHTML += messages[i].content + "<br\><br\>";
+	}
 }
 
 function showBrowse()

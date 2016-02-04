@@ -55,6 +55,17 @@
 			<p>City: <label id="city"></label></p>
 			<p>Country: <label id="country"></label></p>
 			
+			<form name="postMessageForm" onsubmit="postMessage()">
+			<textarea name="message" rows="4" cols="50"></textarea>
+			<input type="submit" value="Post">
+			</form>
+			
+			<form name="reloadWallForm" onsubmit="showHome()">
+			<input type="submit" value="Reload wall">
+			</form>
+			
+			<div id="messageWall">
+			</div>
 		</div>
 		<div id="browse">
 			<div id="browseSearch">
@@ -71,6 +82,9 @@
 				<p>Gender: <label id="gender_b"></label></p>
 				<p>City: <label id="city_b"></label></p>
 				<p>Country: <label id="country_b"></label></p>
+			</div>
+			
+			<div id="messageWall_b">
 			</div>
 		</div>
 		<div id="account">
