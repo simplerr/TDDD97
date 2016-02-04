@@ -122,6 +122,16 @@ function showHome()
 	document.getElementById("home").style.display = "block";
 	document.getElementById("browse").style.display = "none";
 	document.getElementById("account").style.display = "none";
+	
+	var user = serverstub.getUserDataByToken(localStorage.getItem("token")).data;
+	
+	document.getElementById("firstname").innerHTML = user.firstname;
+	document.getElementById("lastname").innerHTML = user.familyname;
+	document.getElementById("email").innerHTML = user.email;
+	document.getElementById("gender").innerHTML = user.gender;
+	document.getElementById("city").innerHTML = user.city;
+	document.getElementById("country").innerHTML = user.country;
+	document.getElementById("firstname").innerHTML = user.firstname;
 }
 
 function showBrowse()
@@ -131,6 +141,16 @@ function showBrowse()
 	document.getElementById("home").style.display = "none";
 	document.getElementById("browse").style.display = "block";
 	document.getElementById("account").style.display = "none";
+	
+	var user = serverstub.getUserDataByToken(localStorage.getItem("token")).data;
+	
+	document.getElementById("firstname").innerHTML = user.firstname;
+	document.getElementById("lastname").innerHTML = user.familyname;
+	document.getElementById("email").innerHTML = user.email;
+	document.getElementById("gender").innerHTML = user.gender;
+	document.getElementById("city").innerHTML = user.city;
+	document.getElementById("country").innerHTML = user.country;
+	document.getElementById("firstname").innerHTML = user.firstname;
 }
 
 function showAccount()
