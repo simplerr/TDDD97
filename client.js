@@ -94,8 +94,14 @@ function validateSignupForm() {
 function browseUser() {
 	var email = document.forms["browseUserForm"]["email"].value;
 	
-	var user = serverstub.getUserDataByToken(localStorage.getItem("token"));
-	alert(user.data.email);
+	var user = serverstub.getUserDataByEmail(localStorage.getItem("token"), email).data;
+	
+	document.getElementById("firstname_b").innerHTML = user.firstname;
+	document.getElementById("lastname_b").innerHTML = user.familyname;
+	document.getElementById("email_b").innerHTML = user.email;
+	document.getElementById("gender_b").innerHTML = user.gender;
+	document.getElementById("city_b").innerHTML = user.city;
+	document.getElementById("country_b").innerHTML = user.country;
 	
 	return true;
 }
@@ -140,17 +146,7 @@ function showBrowse()
 	
 	document.getElementById("home").style.display = "none";
 	document.getElementById("browse").style.display = "block";
-	document.getElementById("account").style.display = "none";
-	
-	var user = serverstub.getUserDataByToken(localStorage.getItem("token")).data;
-	
-	document.getElementById("firstname").innerHTML = user.firstname;
-	document.getElementById("lastname").innerHTML = user.familyname;
-	document.getElementById("email").innerHTML = user.email;
-	document.getElementById("gender").innerHTML = user.gender;
-	document.getElementById("city").innerHTML = user.city;
-	document.getElementById("country").innerHTML = user.country;
-	document.getElementById("firstname").innerHTML = user.firstname;
+	document.getElementById("account").style.display = "none";	
 }
 
 function showAccount()
