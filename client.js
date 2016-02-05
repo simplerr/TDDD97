@@ -103,6 +103,8 @@ function browseUser() {
 	document.getElementById("city_b").innerHTML = user.city;
 	document.getElementById("country_b").innerHTML = user.country;
 	
+	document.getElementById("userInfo_b").style.display = "block";
+	
 	// add messages to the wall
 	var messages = serverstub.getUserMessagesByEmail(localStorage.getItem("token"), email).data;
 	

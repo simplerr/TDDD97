@@ -48,35 +48,42 @@
 	</div>
 	<div id="profcontent">
 		<div id="home">
-			<p>First name: <span id="firstname"></span></p>
-			<p>Last name: <label id="lastname"></label></p>	
-			<p>Email: <label id="email"></label></p>
-			<p>Gender: <label id="gender"></label></p>
-			<p>City: <label id="city"></label></p>
-			<p>Country: <label id="country"></label></p>
+			<div id="userInfo">
+				<p>First name: <label id="firstname"></label></p>
+				<p>Last name: <label id="lastname"></label></p>	
+				<p>Email: <label id="email"></label></p>
+				<p>Gender: <label id="gender"></label></p>
+				<p>City: <label id="city"></label></p>
+				<p>Country: <label id="country"></label></p>
+			</div>
 			
-			<form name="postMessageForm" onsubmit="postMessage()">
-			<textarea name="message" rows="4" cols="50"></textarea>
-			<input type="submit" value="Post">
-			</form>
-			
-			<form name="reloadWallForm" onsubmit="showHome()">
-			<input type="submit" value="Reload wall">
-			</form>
-			
+			<div id="msgdiv">
+				<h3>Post a message</h3>
+				<form name="postMessageForm" onsubmit="postMessage()">
+					<textarea name="message" rows="5" cols="74"></textarea>
+					<input type="submit" value="Post">
+				</form>
+	
+				<form name="reloadWallForm" onsubmit="showHome()">
+					<input type="submit" value="Reload wall">
+				</form>
+			</div>
+			<br /><br />
 			<div id="messageWall">
 			</div>
 		</div>
 		<div id="browse">
 			<div id="browseSearch">
+				<h3>Search a user</h3>
 				<form name="browseUserForm" onsubmit="browseUser()">
 					<input type="mail" placeholder="User email" name="email" required><br/>
 					<input type="submit" value="Browse">
 				</form>
 			</div>
 			
-			<div id="userInfo">
-				<p>First name: <span id="firstname_b"></span></p>
+			<br /><br />
+			<div id="userInfo_b">
+				<p>First name: <label id="firstname_b"></label></p>
 				<p>Last name: <label id="lastname_b"></label></p>	
 				<p>Email: <label id="email_b"></label></p>
 				<p>Gender: <label id="gender_b"></label></p>
@@ -89,6 +96,7 @@
 		</div>
 		<div id="account">
 			<div id="changePassword">
+				<h3>Change password</h3>
 				<form name="changePasswordForm" onsubmit="changePassword()">
 					<input type="password" placeholder="Old password" name="old_password" required><br />
 					<input type="password" placeholder="New Password" name="new_password1" required><br />
@@ -96,9 +104,11 @@
 					<input type="submit" value="Change">
 				</form>
 			
-				<form name="logoutForm" onsubmit="logout()">
-					<input type="submit" value="Logout">
-				</form>			
+				<div id="logoutDiv">
+					<form name="logoutForm" onsubmit="logout()">
+						<input type="submit" value="Logout">
+					</form>	
+				</div>
 			</div>
 		</div>		
 	</div>

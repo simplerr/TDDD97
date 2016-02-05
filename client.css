@@ -58,19 +58,39 @@ input[type=submit] {
 
 /* Profile styling */
 
+#navigation {
+	width: 100%;
+}
+
+#navigation li {
+    display: table-cell;
+    width: 16.666666667%;  /* (100 / numItems)% */
+    text-align: center;
+    white-space: nowrap;
+}​
+
+@media (max-width: 767px) {
+    #navigation li {
+        width: 100%;
+    }
+}
+
 ul li {
 	display: inline;
-	margin: 55px;
 }
 
 a {
 	font-size: 18px;
 	text-decoration: none;
-	border-bottom: 1px dotted;
+	font-weight: bold;
+	font-family: tahoma;
+	color: red;
+	padding: 4px;
 }
 
 a:hover {
-	border-bottom: 1px solid;
+	color: red;
+	background: white;
 }
 
 #profcontent {
@@ -97,6 +117,52 @@ a:hover {
 	display: none;
 }
 
-#changePassword logoutForm{
-	
+#userInfo, #userInfo_b {
+	margin: 10px;
+	padding: 3px;
 }
+
+#userInfo p, #userInfo_b p {
+	font-weight: bold;
+}
+
+#msgdiv {
+	padding: 5px;
+}
+
+#msgdiv h3{
+	margin: 0px;
+}
+
+#messageWall {
+	padding: 1px;
+	border: 1px dotted blue;
+	border-bottom: none;
+}
+
+#browseSearch h3 {
+	margin: 0px;
+	margin-left: 47px;
+}
+
+#changePassword {
+	padding: 10px;
+}
+
+#changePassword h3 {
+	margin: 0px;
+	margin-left: 47px;
+}
+
+#changePassword form input {
+	float: ;
+}
+
+#logoutDiv {
+	margin-top: 80px;
+	width: 100%;
+}
+
+
+
+
