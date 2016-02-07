@@ -17,6 +17,12 @@ def init():
 	db.execute("create table entries (id integer primary key, name text,message text)")
 	db.commit()
 	
+def init_db():
+    with closing(connect_db()) as db:
+        with app.open_resource('database.schema', mode='r') as f:
+            db.cursor().executescript(f.read())
+        db.commit()
+	
 def add_message(name,message):
 	db = get_db()
 	db.execute("insert into entries (name,message) values (?,?)", (name,message))
