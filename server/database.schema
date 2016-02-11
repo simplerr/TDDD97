@@ -16,11 +16,10 @@ PRIMARY KEY(email)
 
 CREATE TABLE Messages
 (
-id INT NOT NULL,
+id INTEGER PRIMARY KEY AUTOINCREMENT,
 sender VARCHAR(64),
 receiver VARCHAR(64),
-message VARCHAR(255),
-PRIMARY KEY(id)
+message VARCHAR(255)
 );
 
 CREATE TABLE UsersOnline
