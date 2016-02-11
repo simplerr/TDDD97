@@ -42,13 +42,13 @@ def get_users():
 def get_user_messages(email):
         return query_db("SELECT * FROM Messages WHERE receiver=?", [email])
 
-def get_user_data(email):
+def get_user(email):
         return query_db("SELECT * FROM Users WHERE email=?", [email])
 
 def set_password(email, password):
         return query_db("UPDATE Users SET password=? WHERE email=?", [password, email])
 
-def valid_password(email, password):
+def valid_login(email, password):
         result = query_db("SELECT * FROM Users WHERE email=? AND password=?", [email, password], one=True)
         
         if result is None:
