@@ -12,15 +12,15 @@
 		</div>
 		
 		<div id="login">
-			<form name="loginForm" onsubmit="return validateLoginForm()">
+			<form name="loginForm" method="post">
 				<input type="mail" placeholder="Email" name="email" required><br />
 				<input type="password" placeholder="Password" name="password" required><br />
-				<input type="submit" value="login">
+				<input type="submit" value="login" onclick="return validateLoginForm()">
 			</form>
 		</div>
 		
 		<div id="signup">
-			<form name="signupForm" onsubmit="return validateSignupForm()">
+			<form name="signupForm" id="signupForm" method="post" onsubmit="return validateSignupForm()">
 			<h1>Sign up here</h1>
 				<input type="text" placeholder="First name" name="firstname" required><br />
 				<input type="text" placeholder="Last name" name="familyname" required><br />
@@ -33,7 +33,7 @@
 				<input type="email" placeholder="Email" name="email" required><br />
 				<input type="password" placeholder="Password" name="password" required><br />
 				<input type="password" placeholder="Repeat password" name="password2" required><br />
-				<input type="submit" value="Submit">
+				<input type="submit" value="Submit" >
 			</form>
 		</div>
 </script>

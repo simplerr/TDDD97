@@ -43,49 +43,102 @@ function changePassword() {
 
 function logout() {
 	var token = localStorage.getItem("token");
-	var result = serverstub.signOut(token);
-	alert(result.message);
-	localStorage.removeItem("token");
-	loadView(token);
+	
+	// Call Flask function here
+	var xhttp = new XMLHttpRequest();
+	xhttp.open("POST", "/sign_out", true);
+	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	
+	xhttp.onreadystatechange = function() {
+		if (xhttp.readyState == 4 && xhttp.status == 200) {
+			// Login processed by Flask
+			var result = JSON.parse(xhttp.responseText);			
+			
+			alert(result.message);
+			localStorage.removeItem("token");
+			loadView(token);
+		}
+	};
+	
+	xhttp.send("token="+token);
 }
 
-function validateLoginForm() {
+function validateLoginForm() {	
 	var email = document.forms["loginForm"]["email"].value;
 	var password = document.forms["loginForm"]["password"].value;
 	
-	var result = serverstub.signIn(email, password);
+	// Call Flask function here
+	var xhttp = new XMLHttpRequest();
+	xhttp.open("POST", "/sign_in", true);
+	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	
-	alert(result.message);
+	xhttp.onreadystatechange = function() {
+		if (xhttp.readyState == 4 && xhttp.status == 200) {
+			// Login processed by Flask
+			var result = JSON.parse(xhttp.responseText);			
+			
+			if(result.success == true) {
+				localStorage.setItem("token", result.data);
+				loadView();
+				return true;
+			}
+			else {
+				alert(result.message);
+				return false;
+			}
+		}
+	};
 	
-	if(result.success == true) {
-		localStorage.setItem("token", result.data);
-		loadView();
-		return true;
-	}
-	else
-		return false;
+	xhttp.send("email="+email+"&password="+password);
+	
+	return false;
 }
 
 function validateSignupForm() {
     var password1 = document.forms["signupForm"]["password"].value;
 	var password2 = document.forms["signupForm"]["password2"].value;
     
-	if(password1 === password2 && password1.length >= 8) { // at least 8 characters long
-		var newUser = new Object();
+	if(password1 === password2 && password1.length >= 8) { // at least 8 characters long	
+		var email = document.forms["signupForm"]["email"].value;
+		var password = document.forms["signupForm"]["password"].value;
+		var firstname = document.forms["signupForm"]["firstname"].value;
+		var familyname = document.forms["signupForm"]["familyname"].value;
+		var gender = document.forms["signupForm"]["gender"].value;
+		var city = document.forms["signupForm"]["city"].value;
+		var country = document.forms["signupForm"]["country"].value;
 		
-		newUser.email = document.forms["signupForm"]["email"].value;
-		newUser.password = document.forms["signupForm"]["password"].value;
-		newUser.firstname = document.forms["signupForm"]["firstname"].value;
-		newUser.familyname = document.forms["signupForm"]["familyname"].value;
-		newUser.gender = document.forms["signupForm"]["gender"].value;
-		newUser.city = document.forms["signupForm"]["city"].value;
-		newUser.country = document.forms["signupForm"]["country"].value;
+		var data= "email="+email+"&";
+		data += "password="+password+"&";
+		data += "firstname="+firstname+"&";
+		data += "familyname="+familyname+"&";
+		data += "gender="+gender+"&";
+		data += "city="+city+"&";
+		data += "country="+country;
 
-		var result = serverstub.signUp(newUser);
+		// Call Flask function here
+		var xhttp = new XMLHttpRequest();
+		xhttp.open("POST", "/sign_up", true);
+		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 		
-		alert(result.message);
-	
-		return true;
+		xhttp.onreadystatechange = function() {
+			if (xhttp.readyState == 4 && xhttp.status == 200) {
+				// Login processed by Flask
+				var result = JSON.parse(xhttp.responseText);
+							
+				if(result.success) {
+					document.getElementById("signupForm").reset();
+					return true;
+				}
+				else {
+					alert(result.message);
+					return false;
+				}
+			}
+		};
+		
+		xhttp.send(data);
+
+		return false;
 	}
 	else
 		return false;
