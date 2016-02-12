@@ -97,7 +97,7 @@
 		<div id="account">
 			<div id="changePassword">
 				<h3>Change password</h3>
-				<form name="changePasswordForm" onsubmit="changePassword()">
+				<form name="changePasswordForm" method="post" onsubmit="return changePassword()">
 					<input type="password" placeholder="Old password" name="old_password" required><br />
 					<input type="password" placeholder="New Password" name="new_password1" required><br />
 					<input type="password" placeholder="New Password again" name="new_password2" required><br />

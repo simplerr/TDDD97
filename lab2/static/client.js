@@ -35,10 +35,29 @@ function changePassword() {
 		return false;
 	}
 	else {
-		// FLASK HERE
-		var result = serverstub.changePassword(localStorage.getItem("token"), old_password, new_password1);
-		alert(result.message);
-		return result.success;
+		// Call Flask function here
+		var xhttp = new XMLHttpRequest();
+		xhttp.open("POST", "/change_password", true);
+		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		
+		xhttp.onreadystatechange = function() {
+			if (xhttp.readyState == 4 && xhttp.status == 200) {
+				// Login processed by Flask
+				//var result = JSON.parse(xhttp.responseText);			
+				
+				alert(xhttp.responseText);			
+			}
+		};
+		
+		var token = localStorage.getItem("token");
+		xhttp.send("token="+token+"&old_password="+old_password+"&new_password="+new_password1);
+		
+		return false;
+		
+		
+		//var result = serverstub.changePassword(localStorage.getItem("token"), old_password, new_password1);
+		//alert(result.message);
+		//return result.success;
 	}
 }
 

@@ -55,13 +55,32 @@ def sign_up():
 	else:
 		return jsonify(success = False, message = "A user with the same email already exists")
 
+@app.route('/change_password', methods=['POST'])
+def change_password():
+	token = request.form["token"]
+	old_password = request.form["old_password"]
+	new_password = request.form["new_password"]
+	
+	# get email from token
+	email = database_helper.get_email_from_token(token)
+	print("emshdjkahsjdh\n\nail:" + email[0])
+	if email is None:
+		return jsonify(success = False, message = "Can't find email matching token")
+	
+	# get and compare current password
+	password = database_helper.get_password(email[0])
+	if password is None:
+		return jsonify(success = False, message = "Can't find password matching email")
+	
+	if password[0] != old_password:
+		return jsonify(success = False, message = "Wrong password entered")
+		
+	# set new password
+	database_helper.set_password(email[0], new_password)
+	
+	return jsonify(success = True, message = "Password successfully updated")
 
 		
-@app.route('/test_post')
-def test_post():
-	result = requests.post("/sign_in", data = {"email":"axel.blackert@gmail.com", "password":"pwd12"})
-
-	return result.text
 
 
 ###################################

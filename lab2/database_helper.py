@@ -30,8 +30,7 @@ def query_db(query, args=(), one=False):
 	return (rv[0] if rv else None) if one else rv
 	
 def add_user(email, firstname, familyname, country, city, gender, password):
-	return query_db("INSERT INTO Users(email, firstname, familyname, country, city, gender, password) VALUES(?,?,?,?,?,?,?)", [email, firstname, familyname, country, city, gender, password])
-       
+	return query_db("INSERT INTO Users(email, firstname, familyname, country, city, gender, password) VALUES(?,?,?,?,?,?,?)", [email, firstname, familyname, country, city, gender, password])     
 
 def add_message(sender, receiver, message):
 	return query_db("INSERT INTO Messages(sender,receiver, message) VALUES (?,?,?)", [sender, receiver, message])
@@ -69,4 +68,10 @@ def add_user_online(email, token):
 	
 def logout_user(token):
 	return query_db('DELETE FROM UsersOnline WHERE token=?', [token], one=True)
+	
+def get_email_from_token(token):
+	return query_db('SELECT email FROM UsersOnline WHERE token=?', [token], one=True)
+	
+def get_password(email):
+	return query_db('SELECT password FROM Users WHERE email=?', [email], one=True)
         
