@@ -1,0 +1,57 @@
+
+
+body {
+	background: lightblue;
+}
+
+#content {
+	width: 600px;
+	margin: 0px auto;
+	margin-top: 100px;
+	padding: 10px;
+}
+
+#logo {
+	width: 340px;
+	height: 400px;
+	border: 1px solid;
+	float: left;
+	background-image: url("images/wimage.png");
+}
+
+#login {
+	background: white;
+	border: 1px solid;
+	width: 240px;
+	float: right;
+	padding: 5px;
+}
+
+form {
+	
+}
+
+input, select, option{
+	width: 90%;
+	margin: 3px;
+	float: right;
+}
+
+input[type=submit] {
+	width: 40%;
+}
+
+#signup {
+	background: white;
+	border: 1px solid;
+	width: 240px;
+	float: right;
+	margin-top: 10px;
+	padding: 5px;
+}
+
+#signup h1 {
+	font-size: 18px;
+	text-align: center;
+	margin: 8px;
+}

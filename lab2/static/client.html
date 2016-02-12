@@ -1,0 +1,121 @@
+<!DOCTYPE html> 
+<html>
+<head>
+
+<link href="client.css" type="text/css" rel="stylesheet" />
+<script src="client.js" type="text/javascript"></script>
+<script src="serverstub.js" type="text/javascript"></script>
+
+<script id="welcomeview" type=”text/view”>	
+		<div id="logo">
+			<!-- empty, uses background-image -->
+		</div>
+		
+		<div id="login">
+			<form name="loginForm" method="post">
+				<input type="mail" placeholder="Email" name="email" required><br />
+				<input type="password" placeholder="Password" name="password" required><br />
+				<input type="submit" value="login" onclick="return validateLoginForm()">
+			</form>
+		</div>
+		
+		<div id="signup">
+			<form name="signupForm" id="signupForm" method="post" onsubmit="return validateSignupForm()">
+			<h1>Sign up here</h1>
+				<input type="text" placeholder="First name" name="firstname" required><br />
+				<input type="text" placeholder="Last name" name="familyname" required><br />
+				<select name="gender">
+					<option value="male">Male</option>
+					<option value="female">Female</option>
+				</select>
+				<input type="text" placeholder="City" name="city" required><br />
+				<input type="text" placeholder="Country" name="country" required><br />
+				<input type="email" placeholder="Email" name="email" required><br />
+				<input type="password" placeholder="Password" name="password" required><br />
+				<input type="password" placeholder="Repeat password" name="password2" required><br />
+				<input type="submit" value="Submit" >
+			</form>
+		</div>
+</script>
+
+<script id="profileview" type=”text/view”>
+	<div id="navigation">
+		<ul>
+			<li><a href="#" onclick="showHome();">Home</a></li>
+			<li><a href="#" onclick="showBrowse();">Browse</a></li>
+			<li><a href="#" onclick="showAccount();">Account</a></li>
+		</ul>
+	</div>
+	<div id="profcontent">
+		<div id="home">
+			<div id="userInfo">
+				<p>First name: <label id="firstname"></label></p>
+				<p>Last name: <label id="lastname"></label></p>	
+				<p>Email: <label id="email"></label></p>
+				<p>Gender: <label id="gender"></label></p>
+				<p>City: <label id="city"></label></p>
+				<p>Country: <label id="country"></label></p>
+			</div>
+			
+			<div id="msgdiv">
+				<h3>Post a message</h3>
+				<form name="postMessageForm" onsubmit="postMessage()">
+					<textarea name="message" rows="5" cols="74"></textarea>
+					<input type="submit" value="Post">
+				</form>
+	
+				<form name="reloadWallForm" onsubmit="showHome()">
+					<input type="submit" value="Reload wall">
+				</form>
+			</div>
+			<br /><br />
+			<div id="messageWall">
+			</div>
+		</div>
+		<div id="browse">
+			<div id="browseSearch">
+				<h3>Search a user</h3>
+				<form name="browseUserForm" onsubmit="browseUser()">
+					<input type="mail" placeholder="User email" name="email" required><br/>
+					<input type="submit" value="Browse">
+				</form>
+			</div>
+			
+			<br /><br />
+			<div id="userInfo_b">
+				<p>First name: <label id="firstname_b"></label></p>
+				<p>Last name: <label id="lastname_b"></label></p>	
+				<p>Email: <label id="email_b"></label></p>
+				<p>Gender: <label id="gender_b"></label></p>
+				<p>City: <label id="city_b"></label></p>
+				<p>Country: <label id="country_b"></label></p>
+			</div>
+			
+			<div id="messageWall_b">
+			</div>
+		</div>
+		<div id="account">
+			<div id="changePassword">
+				<h3>Change password</h3>
+				<form name="changePasswordForm" onsubmit="changePassword()">
+					<input type="password" placeholder="Old password" name="old_password" required><br />
+					<input type="password" placeholder="New Password" name="new_password1" required><br />
+					<input type="password" placeholder="New Password again" name="new_password2" required><br />
+					<input type="submit" value="Change">
+				</form>
+			
+				<div id="logoutDiv">
+					<form name="logoutForm" onsubmit="logout()">
+						<input type="submit" value="Logout">
+					</form>	
+				</div>
+			</div>
+		</div>		
+	</div>
+</script>
+
+</head>
+<body>
+		<div id="content"></div>
+</body>
+</html>

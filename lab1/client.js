@@ -35,6 +35,7 @@ function changePassword() {
 		return false;
 	}
 	else {
+		// FLASK HERE
 		var result = serverstub.changePassword(localStorage.getItem("token"), old_password, new_password1);
 		alert(result.message);
 		return result.success;
@@ -44,48 +45,49 @@ function changePassword() {
 function logout() {
 	var token = localStorage.getItem("token");
 	var result = serverstub.signOut(token);
+	
 	alert(result.message);
 	localStorage.removeItem("token");
 	loadView(token);
 }
 
-function validateLoginForm() {
+function validateLoginForm() {	
 	var email = document.forms["loginForm"]["email"].value;
 	var password = document.forms["loginForm"]["password"].value;
 	
 	var result = serverstub.signIn(email, password);
-	
+
 	alert(result.message);
-	
-	if(result.success == true) {
-		localStorage.setItem("token", result.data);
-		loadView();
+	 
+	if(result.success == true) { 
+		localStorage.setItem("token", result.data);	 
+		loadView();	 
 		return true;
 	}
-	else
+	else	 
 		return false;
+	
+	return false;
 }
 
 function validateSignupForm() {
     var password1 = document.forms["signupForm"]["password"].value;
 	var password2 = document.forms["signupForm"]["password2"].value;
     
-	if(password1 === password2 && password1.length >= 8) { // at least 8 characters long
+	if(password1 === password2 && password1.length >= 8) { // at least 8 characters long	
 		var newUser = new Object();
-		
-		newUser.email = document.forms["signupForm"]["email"].value;
-		newUser.password = document.forms["signupForm"]["password"].value;
-		newUser.firstname = document.forms["signupForm"]["firstname"].value;
+		newUser.email = document.forms["signupForm"]["email"].value;	 
+		newUser.password = document.forms["signupForm"]["password"].value;	 
+		newUser.firstname = document.forms["signupForm"]["firstname"].value;	 
 		newUser.familyname = document.forms["signupForm"]["familyname"].value;
-		newUser.gender = document.forms["signupForm"]["gender"].value;
-		newUser.city = document.forms["signupForm"]["city"].value;
+	 	newUser.gender = document.forms["signupForm"]["gender"].value;	 
+		newUser.city = document.forms["signupForm"]["city"].value;	 
 		newUser.country = document.forms["signupForm"]["country"].value;
 
 		var result = serverstub.signUp(newUser);
-		
-		alert(result.message);
-	
-		return true;
+
+		alert(result.message);	 		 
+			return true;
 	}
 	else
 		return false;
@@ -106,6 +108,7 @@ function browseUser() {
 	document.getElementById("userInfo_b").style.display = "block";
 	
 	// add messages to the wall
+	// FLASK HERE
 	var messages = serverstub.getUserMessagesByEmail(localStorage.getItem("token"), email).data;
 	
 	document.getElementById("messageWall_b").innerHTML = "";
@@ -135,8 +138,10 @@ function showTab()
 function postMessage() 
 {
 	var message = document.forms["postMessageForm"]["message"].value;
-	var email = serverstub.getUserDataByToken(localStorage.getItem("token")).data.email;
 	
+	// FLASK HERE
+	
+	var email = serverstub.getUserDataByToken(localStorage.getItem("token")).data.email;
 	var result = serverstub.postMessage(localStorage.getItem("token"), message, email);
 }
 
@@ -148,6 +153,8 @@ function showHome()
 	document.getElementById("browse").style.display = "none";
 	document.getElementById("account").style.display = "none";
 	
+	// FLASK HERE
+	
 	var user = serverstub.getUserDataByToken(localStorage.getItem("token")).data;
 	
 	document.getElementById("firstname").innerHTML = user.firstname;
@@ -158,6 +165,9 @@ function showHome()
 	document.getElementById("country").innerHTML = user.country;
 	
 	// add messages to the wall
+	
+	// FLASK HERE
+	
 	var messages = serverstub.getUserMessagesByToken(localStorage.getItem("token")).data;
 	
 	document.getElementById("messageWall").innerHTML = "";
