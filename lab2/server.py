@@ -4,6 +4,10 @@ import os,binascii # for random token
 
 from flask import Flask, jsonify, request, redirect
 
+# TODO:
+# - make a separate table for email and password (safer)
+#
+
 app = Flask(__name__)
 
 @app.route('/', methods=['GET'])
@@ -63,7 +67,7 @@ def change_password():
 	
 	# get email from token
 	email = database_helper.get_email_from_token(token)
-	print("emshdjkahsjdh\n\nail:" + email[0])
+	
 	if email is None:
 		return jsonify(success = False, message = "Can't find email matching token")
 	
@@ -80,6 +84,26 @@ def change_password():
 	
 	return jsonify(success = True, message = "Password successfully updated")
 
+@app.route('/get_user_data_by_token', methods=['POST'])
+def get_user_data_by_token():
+		return "todo"
+		
+@app.route('/get_user_data_by_email', methods=['POST'])
+def get_user_data_by_email():
+		return "todo"
+		
+@app.route('/get_user_messages_by_token', methods=['POST'])
+def get_user_messages_by_token():
+		return "todo"
+		
+@app.route('/get_user_messages_by_email', methods=['POST'])
+def get_user_messages_by_email():
+		return "todo"
+		
+@app.route('/post_message', methods=['POST'])
+def post_message():
+		return "todo"
+		
 		
 
 
