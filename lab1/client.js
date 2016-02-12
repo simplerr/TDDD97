@@ -86,8 +86,9 @@ function validateSignupForm() {
 
 		var result = serverstub.signUp(newUser);
 
-		alert(result.message);	 		 
-			return true;
+		alert(result.message);	 
+		
+		return true;
 	}
 	else
 		return false;
