@@ -3,7 +3,9 @@ from flask import g
 from server import app
 
 def connect_db():
-	return sqlite3.connect("database.db")
+	connection = sqlite3.connect("database.db");
+	#connection.row_factory = sqlite3.Row;
+	return connection
 	
 def close():
 	get_db().close()

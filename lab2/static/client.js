@@ -53,11 +53,6 @@ function changePassword() {
 		xhttp.send("token="+token+"&old_password="+old_password+"&new_password="+new_password1);
 		
 		return false;
-		
-		
-		//var result = serverstub.changePassword(localStorage.getItem("token"), old_password, new_password1);
-		//alert(result.message);
-		//return result.success;
 	}
 }
 
@@ -167,28 +162,71 @@ function validateSignupForm() {
 function browseUser() {
 	var email = document.forms["browseUserForm"]["email"].value;
 	
-	var user = serverstub.getUserDataByEmail(localStorage.getItem("token"), email).data;
+	// GET USER DATA
+	var xhttp = new XMLHttpRequest();
+	xhttp.open("POST", "/get_user_data_by_email", true);
+	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+	xhttp.onreadystatechange = function() {
+		
+		if (xhttp.readyState == 4 && xhttp.status == 200) {
+			// Login processed by Flask
+			var user = JSON.parse(xhttp.responseText);			
+				
+			//alert(user.data.email);	
+				
+			if(user.success) {
+				document.getElementById("firstname_b").innerHTML = user.data.firstname;
+				document.getElementById("lastname_b").innerHTML = user.data.familyname;
+				document.getElementById("email_b").innerHTML = user.data.email;
+				document.getElementById("gender_b").innerHTML = user.data.gender;
+				document.getElementById("city_b").innerHTML = user.data.city;
+				document.getElementById("country_b").innerHTML = user.data.country;
+				document.getElementById("userInfo_b").style.display = "block";
+				return true;
+			}
+			else {
+				alert(user.message);
+				return false;
+			}
+		}
+	};
 	
-	document.getElementById("firstname_b").innerHTML = user.firstname;
-	document.getElementById("lastname_b").innerHTML = user.familyname;
-	document.getElementById("email_b").innerHTML = user.email;
-	document.getElementById("gender_b").innerHTML = user.gender;
-	document.getElementById("city_b").innerHTML = user.city;
-	document.getElementById("country_b").innerHTML = user.country;
+	xhttp.send("email="+email);
 	
-	document.getElementById("userInfo_b").style.display = "block";
-	
-	// add messages to the wall
+	// GET USER MESSAGES
 	// FLASK HERE
-	var messages = serverstub.getUserMessagesByEmail(localStorage.getItem("token"), email).data;
+	// Call Flask function here
+	var xhttp1 = new XMLHttpRequest();
+	xhttp1.open("POST", "/get_user_messages_by_email", true);
+	xhttp1.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	
-	document.getElementById("messageWall_b").innerHTML = "";
-	for (i = 0; i < messages.length; i++) { 
-		document.getElementById("messageWall_b").innerHTML += messages[i].writer + ": ";
-		document.getElementById("messageWall_b").innerHTML += messages[i].content + "<br\><br\>";
-	}
+	xhttp1.onreadystatechange = function() {
+		if (xhttp1.readyState == 4 && xhttp1.status == 200) {
+			// Login processed by Flask
+			var result = JSON.parse(xhttp1.responseText);
+			var messages = result.data;		
+					
+			if(result.success) {
+				document.getElementById("messageWall_b").innerHTML = "";
 	
-	return true;
+				for (i = 0; i < messages.length; i++) { 
+					document.getElementById("messageWall_b").innerHTML += messages[i][1] + ": ";
+					document.getElementById("messageWall_b").innerHTML += messages[i][3] + "<br\><br\>";
+				}
+				
+				return true;
+			}
+			else {
+				alert(result.message);
+				return false;
+			}
+		}
+	};
+	
+	xhttp1.send("email="+email);
+	
+	return false;
 }
 
 function showTab()
@@ -209,11 +247,36 @@ function showTab()
 function postMessage() 
 {
 	var message = document.forms["postMessageForm"]["message"].value;
+	var email = document.getElementById("email").innerHTML;
+
+	// Call Flask function here
+	var xhttp = new XMLHttpRequest();
+	xhttp.open("POST", "/post_message", true);
+	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	
-	// FLASK HERE
+	xhttp.onreadystatechange = function() {
+		if (xhttp.readyState == 4 && xhttp.status == 200) {
+			// Login processed by Flask
+			var result = JSON.parse(xhttp.responseText);			
+			
+			if(result.success == true) {
+				
+				return true;
+			}
+			else {
+				alert(result.message);
+				return false;
+			}
+		}
+	};
 	
-	var email = serverstub.getUserDataByToken(localStorage.getItem("token")).data.email;
-	var result = serverstub.postMessage(localStorage.getItem("token"), message, email);
+	var token = localStorage.getItem("token");
+	
+	xhttp.send("token="+token+"&email="+email+"&message="+message);
+	
+	return false;
+
+	//var result = serverstub.postMessage(localStorage.getItem("token"), message, email);
 }
 
 function showHome()
@@ -225,28 +288,72 @@ function showHome()
 	document.getElementById("account").style.display = "none";
 	
 	// FLASK HERE
+	// Call Flask function here
+	var xhttp = new XMLHttpRequest();
+	xhttp.open("POST", "/get_user_data_by_token", true);
+	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+	xhttp.onreadystatechange = function() {
+		
+		if (xhttp.readyState == 4 && xhttp.status == 200) {
+			// Login processed by Flask
+			var user = JSON.parse(xhttp.responseText);			
+				
+			//alert(user.data.email);	
+				
+			if(user.success) {
+				document.getElementById("firstname").innerHTML = user.data.firstname;
+				document.getElementById("lastname").innerHTML = user.data.familyname;
+				document.getElementById("email").innerHTML = user.data.email;
+				document.getElementById("gender").innerHTML = user.data.gender;
+				document.getElementById("city").innerHTML = user.data.city;
+				document.getElementById("country").innerHTML = user.data.country;
+				return true;
+			}
+			else {
+				alert(user.message);
+				return false;
+			}
+		}
+	};
 	
-	var user = serverstub.getUserDataByToken(localStorage.getItem("token")).data;
-	
-	document.getElementById("firstname").innerHTML = user.firstname;
-	document.getElementById("lastname").innerHTML = user.familyname;
-	document.getElementById("email").innerHTML = user.email;
-	document.getElementById("gender").innerHTML = user.gender;
-	document.getElementById("city").innerHTML = user.city;
-	document.getElementById("country").innerHTML = user.country;
-	
-	// add messages to the wall
+	var token = localStorage.getItem("token");
+	xhttp.send("token="+token);
 	
 	// FLASK HERE
+	// Call Flask function here
+	var xhttp1 = new XMLHttpRequest();
+	xhttp1.open("POST", "/get_user_messages_by_token", true);
+	xhttp1.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	
-	var messages = serverstub.getUserMessagesByToken(localStorage.getItem("token")).data;
+	xhttp1.onreadystatechange = function() {
+		if (xhttp1.readyState == 4 && xhttp1.status == 200) {
+			// Login processed by Flask
+			var result = JSON.parse(xhttp1.responseText);
+			var messages = result.data;		
+					
+			if(result.success) {
+				document.getElementById("messageWall").innerHTML = "";
 	
-	document.getElementById("messageWall").innerHTML = "";
+				for (i = 0; i < messages.length; i++) { 
+					document.getElementById("messageWall").innerHTML += messages[i][1] + ": ";
+					document.getElementById("messageWall").innerHTML += messages[i][3] + "<br\><br\>";
+				}
+				
+				return true;
+			}
+			else {
+				alert(result.message);
+				return false;
+			}
+		}
+	};
 	
-	for (i = 0; i < messages.length; i++) { 
-		document.getElementById("messageWall").innerHTML += messages[i].writer + ": ";
-		document.getElementById("messageWall").innerHTML += messages[i].content + "<br\><br\>";
-	}
+	xhttp1.send("token="+token);
+	
+	//var messages = serverstub.getUserMessagesByToken(localStorage.getItem("token")).data;
+	
+	return false;
 }
 
 function showBrowse()
