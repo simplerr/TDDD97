@@ -15,8 +15,12 @@ window.onload = function() {
 function loadView() {
 	if(localStorage.getItem("token") == null) // not logged in
 		document.getElementById("content").innerHTML = document.getElementById("welcomeview").innerHTML;
-	else
+	else {
 		document.getElementById("content").innerHTML = document.getElementById("profileview").innerHTML;
+		
+		// Create WebSocket here
+		//connect_socket();
+	}
 	
 	showTab();
 }
@@ -98,11 +102,15 @@ function validateLoginForm() {
 	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	
 	xhttp.onreadystatechange = function() {
+		
 		if (xhttp.readyState == 4 && xhttp.status == 200) {
 			// Login processed by Flask
 			var result = JSON.parse(xhttp.responseText);			
 			
 			if(result.success == true) {
+				// Create WebSocket here
+				connect_socket(email);
+						
 				localStorage.setItem("token", result.data);
 				loadView();
 				return true;
@@ -117,6 +125,27 @@ function validateLoginForm() {
 	xhttp.send("email="+email+"&password="+password);
 	
 	return false;
+}
+
+function connect_socket(email) {
+	var ws = new WebSocket("ws://127.0.0.1:5000/websocket");
+				
+	ws.onopen = function()
+	{
+		ws.send(email);
+	}
+	
+	ws.onmessage = function(response) {		
+		
+		
+		//var data = JSON.parse(response.data);
+
+		//alert(data.message);
+		if (response.data == "sign_out") {
+			//alert(data.message);
+			logout();
+		};
+	};
 }
 
 function validateSignupForm() {

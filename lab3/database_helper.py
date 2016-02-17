@@ -1,6 +1,6 @@
 import sqlite3
 from flask import g
-#from server import app
+from server import app
 
 def connect_db():
 	connection = sqlite3.connect("database.db");

@@ -26,5 +26,5 @@ CREATE TABLE UsersOnline
 (
 email VARCHAR(64),
 token VARCHAR(64),
-PRIMARY KEY(email)
+PRIMARY KEY(token)
 );

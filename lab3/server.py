@@ -13,6 +13,8 @@ from geventwebsocket.handler import WebSocketHandler
 
 app = Flask(__name__)
 
+socket_list = dict() # {}
+
 @app.route('/', methods=['GET'])
 def index():
     return redirect('static/client.html')
@@ -179,13 +181,26 @@ def post_message():
 	sender = database_helper.get_email_from_token(token)
 
 	database_helper.add_message(sender[0], email, message)
-	# TODO: ERROR CHECK!!
 		
 	return jsonify(success = True, message = "Message successfully posted")	
 
+@app.route('/websocket')
+def websocket():
+    if request.environ.get('wsgi.websocket'):
+        ws = request.environ['wsgi.websocket']
+        while True:
+			email = ws.receive()
+			
+			if email in socket_list:
+				socket_list[email].send("sign_out")
+				
+			socket_list[email] = ws;
+			print("Socket email: " + email)
+    #return	
+	
 if __name__ == '__main__':
 	app.debug = True
-	app.run() 
+	#app.run() 
  
-	#http_server = WSGIServer(('', 5000), app, handler_class=WebSocketHandler)
-	#http_server.serve_forever()
+	http_server = WSGIServer(('', 5000), app, handler_class=WebSocketHandler)
+	http_server.serve_forever()

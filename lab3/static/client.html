@@ -11,10 +11,10 @@
 		</div>
 		
 		<div id="login">
-			<form name="loginForm" method="post">
+			<form name="loginForm" method="post" onsubmit="return validateLoginForm()">
 				<input type="mail" placeholder="Email" name="email" required><br />
 				<input type="password" placeholder="Password" name="password" required><br />
-				<input type="submit" value="login" onclick="return validateLoginForm()">
+				<input type="submit" value="login">
 			</form>
 		</div>
 		
@@ -95,7 +95,7 @@
 		</div>
 		<div id="account">
 			<div id="changePassword">
-				<h3>Change password</h3>
+				<h3 id="change_pwd">Change password</h3>
 				<form name="changePasswordForm" method="post" onsubmit="return changePassword()">
 					<input type="password" placeholder="Old password" name="old_password" required><br />
 					<input type="password" placeholder="New Password" name="new_password1" required><br />
