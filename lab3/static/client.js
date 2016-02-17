@@ -51,6 +51,8 @@ function changePassword() {
 				else {
 					alert(result.message);	
 				}
+				
+				return true;
 			}
 		};
 		
@@ -77,6 +79,7 @@ function logout() {
 			alert(result.message);
 			localStorage.removeItem("token");
 			loadView(token);
+			return true;
 		}
 	};
 	

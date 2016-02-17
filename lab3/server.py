@@ -40,6 +40,8 @@ def sign_in():
 def sign_out():
 	token = request.form["token"]
 	
+	#print("LOG OUT")
+	
 	# Check if online
 	if database_helper.is_user_online(token) != True:
 		return jsonify(success = False, message = "You are not logged in")
@@ -183,7 +185,7 @@ def post_message():
 
 if __name__ == '__main__':
 	app.debug = True
-	#app.run() 
+	app.run() 
  
-	http_server = WSGIServer(('', 5000), app, handler_class=WebSocketHandler)
-	http_server.serve_forever()
+	#http_server = WSGIServer(('', 5000), app, handler_class=WebSocketHandler)
+	#http_server.serve_forever()

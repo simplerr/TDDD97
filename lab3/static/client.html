@@ -58,12 +58,12 @@
 			
 			<div id="msgdiv">
 				<h3>Post a message</h3>
-				<form name="postMessageForm" onsubmit="postMessage()">
+				<form name="postMessageForm" method="post" onsubmit="return postMessage()">
 					<textarea name="message" rows="5" cols="74"></textarea>
 					<input type="submit" value="Post">
 				</form>
 	
-				<form name="reloadWallForm" onsubmit="showHome()">
+				<form name="reloadWallForm" method="post" onsubmit="return showHome()">
 					<input type="submit" value="Reload wall">
 				</form>
 			</div>
@@ -74,7 +74,7 @@
 		<div id="browse">
 			<div id="browseSearch">
 				<h3>Search a user</h3>
-				<form name="browseUserForm" onsubmit="browseUser()">
+				<form name="browseUserForm" method="post" onsubmit="return browseUser()">
 					<input type="mail" placeholder="User email" name="email" required><br/>
 					<input type="submit" value="Browse">
 				</form>
@@ -104,7 +104,7 @@
 				</form>
 			
 				<div id="logoutDiv">
-					<form name="logoutForm" onsubmit="logout()">
+					<form name="logoutForm" method="post" onsubmit="return logout()">
 						<input type="submit" value="Logout">
 					</form>	
 				</div>
