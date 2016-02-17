@@ -43,9 +43,14 @@ function changePassword() {
 		xhttp.onreadystatechange = function() {
 			if (xhttp.readyState == 4 && xhttp.status == 200) {
 				// Login processed by Flask
-				//var result = JSON.parse(xhttp.responseText);			
+				var result = JSON.parse(xhttp.responseText);			
 				
-				alert(xhttp.responseText);			
+				if(result.success == false) {			
+					alert(result.message);	
+				}	
+				else {
+					alert(result.message);	
+				}
 			}
 		};
 		
@@ -76,6 +81,8 @@ function logout() {
 	};
 	
 	xhttp.send("token="+token);
+	
+	return false;
 }
 
 function validateLoginForm() {	
