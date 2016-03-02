@@ -1,0 +1,30 @@
+DROP TABLE IF EXISTS Users;
+DROP TABLE IF EXISTS Messages;
+DROP TABLE IF EXISTS UsersOnline;
+
+CREATE TABLE Users
+(
+email VARCHAR(64),
+firstname VARCHAR(64),
+familyname VARCHAR(64),
+country VARCHAR(64),
+city VARCHAR(64),
+gender VARCHAR(64),
+password VARCHAR(64),
+PRIMARY KEY(email)
+);
+
+CREATE TABLE Messages
+(
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+sender VARCHAR(64),
+receiver VARCHAR(64),
+message VARCHAR(255)
+);
+
+CREATE TABLE UsersOnline
+(
+email VARCHAR(64),
+token VARCHAR(64),
+PRIMARY KEY(token)
+);
