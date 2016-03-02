@@ -307,7 +307,8 @@ function postMessage()
 			var result = JSON.parse(xhttp.responseText);			
 			
 			if(result.success == true) {
-				
+				document.forms["postMessageForm"]["message"].value = "";	// Rest message field
+				showHome(); // Reload the wall
 				return true;
 			}
 			else {
@@ -342,7 +343,8 @@ function postWallMessage()
 			var result = JSON.parse(xhttp.responseText);			
 			
 			if(result.success == true) {
-				
+				document.forms["postMessageForm_b"]["message_b"].value = "";	// Rest message field
+				browseUser(); // Reload the wall
 				return true;
 			}
 			else {
