@@ -204,11 +204,13 @@ def websocket():
 				socket_list[message["email"]] = ws
 				
 			elif message["id"] == "update_chart":
+				token = message["token"]
+				email = database_helper.get_email_from_token(token)
+
 				# get user statistics
-				# random place holder
-				sent_ = randint(0, 100)
-				received_ = randint(0, 100)
-				online_ = randint(0, 100)
+				sent_ = database_helper.get_num_messages_sent(email[0])
+				received_ = database_helper.get_num_messages_received(email[0])
+				online_ = database_helper.get_num_users_online()
 				
 				ws.send(json.dumps(dict(id = "update_chart", sent = sent_, received = received_, online = online_)))
 				

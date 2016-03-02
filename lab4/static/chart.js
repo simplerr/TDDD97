@@ -15,7 +15,7 @@ function initChart() {
             strokeColor: "rgba(220,220,220,0.8)",
             highlightFill: "rgba(220,220,220,0.75)",
             highlightStroke: "rgba(220,220,220,1)",
-            data: [0, 0, 1]
+            data: [0, 0, 0]
         }
     ]
 	};
@@ -28,7 +28,7 @@ function initChart() {
 		// Request data from the database with websockets
 		var update_chart = new Object();
 		update_chart.id = "update_chart";
-		update_chart.email = email;
+		update_chart.token = localStorage.getItem("token");
 		ws.send(JSON.stringify(update_chart));
 		
 		// Updates the bar values

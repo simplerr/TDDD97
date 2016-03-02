@@ -76,3 +76,12 @@ def get_email_from_token(token):
 	
 def get_password(email):
 	return query_db('SELECT password FROM Users WHERE email=?', [email], one=True)
+	
+def get_num_users_online():
+	return query_db("SELECT COUNT(*) FROM UsersOnline", one=True)
+	
+def get_num_messages_received(email):
+	return query_db("SELECT COUNT(*) FROM Messages WHERE receiver=?", [email], one=True)
+	
+def get_num_messages_sent(email):
+	return query_db("SELECT COUNT(*) FROM Messages WHERE sender=?", [email], one=True)
