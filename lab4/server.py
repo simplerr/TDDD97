@@ -1,11 +1,13 @@
 import sqlite3
 import database_helper
 import os,binascii # for random token
+import json
 
 from flask import Flask, jsonify, request, redirect
 from gevent import pywsgi
 from gevent.wsgi import WSGIServer
 from geventwebsocket.handler import WebSocketHandler
+from random import randint
 
 # TODO:
 # - make a separate table for email and password (safer)
@@ -188,13 +190,28 @@ def post_message():
 def websocket():
     if request.environ.get('wsgi.websocket'):
         ws = request.environ['wsgi.websocket']
+		
+		# TODO: WebSockets should send in json format
+		# id, data etc
+		
         while True:
-			email = ws.receive()
+			msg = ws.receive()
+			message = json.loads(msg)
 			
-			if email in socket_list:
-				socket_list[email].send("sign_out")
+			if message["id"] == "email":				
+				if message["email"] in socket_list:
+					socket_list[message["email"]].send(json.dumps(dict(id = "sign_out")))				
+				socket_list[message["email"]] = ws
 				
-			socket_list[email] = ws;
+			elif message["id"] == "update_chart":
+				# get user statistics
+				# random place holder
+				sent_ = randint(0, 100)
+				received_ = randint(0, 100)
+				online_ = randint(0, 100)
+				
+				ws.send(json.dumps(dict(id = "update_chart", sent = sent_, received = received_, online = online_)))
+				
 			#print("Socket email: " + email)
     #return	
 	

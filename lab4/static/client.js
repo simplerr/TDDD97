@@ -1,4 +1,7 @@
 
+// So that chart.js can reach it
+var ws;	
+
 displayView = function() {
 	// whatever
 }
@@ -129,23 +132,28 @@ function validateLoginForm() {
 }
 
 function connect_socket(email) {
-	var ws = new WebSocket("ws://127.0.0.1:5000/websocket");
+	ws = new WebSocket("ws://127.0.0.1:5000/websocket");
 				
 	ws.onopen = function()
 	{
-		ws.send(email);
+		var ws_email = new Object();
+		ws_email.id = "email";
+		ws_email.email = email;
+		ws.send(JSON.stringify(ws_email));
 	}
 	
-	ws.onmessage = function(response) {		
-		
-		
-		//var data = JSON.parse(response.data);
+	ws.onmessage = function(response) {			
+		var message = JSON.parse(response.data);
 
 		//alert(data.message);
-		if (response.data == "sign_out") {
+		if (message.id == "sign_out") {
 			//alert(data.message);
 			logout();
-		};
+		}
+		else if(message.id == "update_chart") {
+			//alert(message.online);
+			update_chart(message.sent, message.received, message.online);
+		}
 	};
 }
 
