@@ -326,6 +326,41 @@ function postMessage()
 	//var result = serverstub.postMessage(localStorage.getItem("token"), message, email);
 }
 
+function postWallMessage() 
+{
+	var message = document.forms["postMessageForm_b"]["message_b"].value;
+	var email = document.getElementById("email_b").innerHTML;
+
+	// Call Flask function here
+	var xhttp = new XMLHttpRequest();
+	xhttp.open("POST", "/post_message", true);
+	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	
+	xhttp.onreadystatechange = function() {
+		if (xhttp.readyState == 4 && xhttp.status == 200) {
+			// Login processed by Flask
+			var result = JSON.parse(xhttp.responseText);			
+			
+			if(result.success == true) {
+				
+				return true;
+			}
+			else {
+				alert(result.message);
+				return false;
+			}
+		}
+	};
+	
+	var token = localStorage.getItem("token");
+	
+	xhttp.send("token="+token+"&email="+email+"&message="+message);
+	
+	return false;
+
+	//var result = serverstub.postMessage(localStorage.getItem("token"), message, email);
+}
+
 function showHome()
 {
 	localStorage.setItem("tab", "home");

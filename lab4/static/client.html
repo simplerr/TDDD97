@@ -92,6 +92,18 @@
 				<p>Country: <label id="country_b"></label></p>
 			</div>
 			
+			<div id="msgdiv_b">
+				<h3>Post a message</h3>
+				<form name="postMessageForm_b" method="post" onsubmit="return postWallMessage()">
+					<textarea name="message_b" rows="5" cols="74"></textarea>
+					<input type="submit" value="Post">
+				</form>
+	
+				<form name="reloadWallForm" method="post" onsubmit="return browseUser()">
+					<input type="submit" value="Reload wall">
+				</form>
+			</div>
+			
 			<div id="messageWall_b">
 			</div>
 		</div>
