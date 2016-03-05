@@ -151,7 +151,9 @@ function connect_socket(email) {
 			logout();
 		}
 		else if(message.id == "update_chart") {
+			//alert("test");
 			//alert(message.online);
+			
 			update_chart(message.sent, message.received, message.online);
 		}
 	};

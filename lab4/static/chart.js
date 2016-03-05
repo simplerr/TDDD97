@@ -1,7 +1,6 @@
 var chart;
 
 function initChart() {
-	
 	var options = {
         animation : true,      
     };
@@ -40,6 +39,7 @@ function initChart() {
 }
 
 function update_chart(sent, received, users) {
+	//alert("test_chart")
 	// Updates the bar values
 	chart.datasets[0].bars[0].value = sent;
 	chart.datasets[0].bars[1].value = received;
