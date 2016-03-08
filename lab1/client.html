@@ -41,9 +41,9 @@
 <script id="profileview" type=”text/view”>
 	<div id="navigation">
 		<ul>
-			<li><a href="#" onclick="showHome();">Home</a></li>
-			<li><a href="#" onclick="showBrowse();">Browse</a></li>
-			<li><a href="#" onclick="showAccount();">Account</a></li>
+			<li><a href="#" id="nav_home" onclick="showHome();">Home</a></li>
+			<li><a href="#" id="nav_browse" onclick="showBrowse();">Browse</a></li>
+			<li><a href="#" id="nav_account" onclick="showAccount();">Account</a></li>
 		</ul>
 	</div>
 	<div id="profcontent">
@@ -59,12 +59,12 @@
 			
 			<div id="msgdiv">
 				<h3>Post a message</h3>
-				<form name="postMessageForm" onsubmit="postMessage()">
+				<form name="postMessageForm" onsubmit="return postMessage()">
 					<textarea name="message" rows="5" cols="74"></textarea>
 					<input type="submit" value="Post">
 				</form>
 	
-				<form name="reloadWallForm" onsubmit="showHome()">
+				<form name="reloadWallForm" onsubmit="return showHome()">
 					<input type="submit" value="Reload wall">
 				</form>
 			</div>
@@ -75,7 +75,7 @@
 		<div id="browse">
 			<div id="browseSearch">
 				<h3>Search a user</h3>
-				<form name="browseUserForm" onsubmit="browseUser()">
+				<form name="browseUserForm" onsubmit="return browseUser()">
 					<input type="mail" placeholder="User email" name="email" required><br/>
 					<input type="submit" value="Browse">
 				</form>
@@ -97,7 +97,7 @@
 		<div id="account">
 			<div id="changePassword">
 				<h3>Change password</h3>
-				<form name="changePasswordForm" onsubmit="changePassword()">
+				<form name="changePasswordForm" onsubmit="return changePassword()">
 					<input type="password" placeholder="Old password" name="old_password" required><br />
 					<input type="password" placeholder="New Password" name="new_password1" required><br />
 					<input type="password" placeholder="New Password again" name="new_password2" required><br />
@@ -105,7 +105,7 @@
 				</form>
 			
 				<div id="logoutDiv">
-					<form name="logoutForm" onsubmit="logout()">
+					<form name="logoutForm" onsubmit="return logout()">
 						<input type="submit" value="Logout">
 					</form>	
 				</div>

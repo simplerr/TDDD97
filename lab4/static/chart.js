@@ -28,6 +28,7 @@ function initChart() {
 		var update_chart = new Object();
 		update_chart.id = "update_chart";
 		update_chart.token = localStorage.getItem("token");
+		//alert(update_chart.id + " " + update_chart.token);
 		ws.send(JSON.stringify(update_chart));
 		
 		// Updates the bar values

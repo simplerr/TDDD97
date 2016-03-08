@@ -38,8 +38,10 @@ function changePassword() {
 		// FLASK HERE
 		var result = serverstub.changePassword(localStorage.getItem("token"), old_password, new_password1);
 		alert(result.message);
-		return result.success;
+		//return result.success;
 	}
+
+	return false;
 }
 
 function logout() {
@@ -49,6 +51,8 @@ function logout() {
 	alert(result.message);
 	localStorage.removeItem("token");
 	loadView(token);
+
+	return false;
 }
 
 function validateLoginForm() {	
@@ -62,7 +66,7 @@ function validateLoginForm() {
 	if(result.success == true) { 
 		localStorage.setItem("token", result.data);	 
 		loadView();	 
-		return true;
+		//return true;
 	}
 	else	 
 		return false;
@@ -88,10 +92,12 @@ function validateSignupForm() {
 
 		alert(result.message);	 
 		
-		return true;
+		//return true;
 	}
 	else
 		return false;
+
+	return false;
 }
 
 function browseUser() {
@@ -118,7 +124,7 @@ function browseUser() {
 		document.getElementById("messageWall_b").innerHTML += messages[i].content + "<br\><br\>";
 	}
 	
-	return true;
+	return false;
 }
 
 function showTab()
@@ -144,6 +150,10 @@ function postMessage()
 	
 	var email = serverstub.getUserDataByToken(localStorage.getItem("token")).data.email;
 	var result = serverstub.postMessage(localStorage.getItem("token"), message, email);
+
+	loadView();
+
+	return false;
 }
 
 function showHome()
@@ -153,6 +163,10 @@ function showHome()
 	document.getElementById("home").style.display = "block";
 	document.getElementById("browse").style.display = "none";
 	document.getElementById("account").style.display = "none";
+
+	document.getElementById("nav_home").style.color = "black";
+	document.getElementById("nav_browse").style.color = "red";
+	document.getElementById("nav_account").style.color = "red";
 	
 	// FLASK HERE
 	
@@ -177,6 +191,8 @@ function showHome()
 		document.getElementById("messageWall").innerHTML += messages[i].writer + ": ";
 		document.getElementById("messageWall").innerHTML += messages[i].content + "<br\><br\>";
 	}
+
+	return false;
 }
 
 function showBrowse()
@@ -186,6 +202,10 @@ function showBrowse()
 	document.getElementById("home").style.display = "none";
 	document.getElementById("browse").style.display = "block";
 	document.getElementById("account").style.display = "none";	
+
+	document.getElementById("nav_home").style.color = "red";
+	document.getElementById("nav_browse").style.color = "black";
+	document.getElementById("nav_account").style.color = "red";
 }
 
 function showAccount()
@@ -195,4 +215,8 @@ function showAccount()
 	document.getElementById("home").style.display = "none";
 	document.getElementById("browse").style.display = "none";
 	document.getElementById("account").style.display = "block";
+
+	document.getElementById("nav_home").style.color = "red";
+	document.getElementById("nav_browse").style.color = "red";
+	document.getElementById("nav_account").style.color = "black";
 }
