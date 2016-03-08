@@ -21,23 +21,30 @@ function loadView() {
 	showTab();
 }
 
+function setErrorMessage(string)
+{
+	document.getElementById("errormsg").innerHTML = string;
+	setTimeout(function() {document.getElementById("errormsg").innerHTML = "";}, 1000);
+}
+
 function changePassword() {
 	var old_password = document.forms["changePasswordForm"]["old_password"].value;
 	var new_password1 = document.forms["changePasswordForm"]["new_password1"].value;
 	var new_password2 = document.forms["changePasswordForm"]["new_password2"].value;
 	
 	if(new_password1 != new_password2) {
-		alert("The new password fields don't match");
+		//alert("The new password fields don't match");
+		setErrorMessage("Password doesn't match!");
 		return false;
 	}
 	else if(new_password1.length < 8) {
-		alert("The new password is too short");
+		setErrorMessage("The new password is too short");
 		return false;
 	}
 	else {
 		// FLASK HERE
 		var result = serverstub.changePassword(localStorage.getItem("token"), old_password, new_password1);
-		alert(result.message);
+		setErrorMessage(result.message);
 		//return result.success;
 	}
 
@@ -48,7 +55,7 @@ function logout() {
 	var token = localStorage.getItem("token");
 	var result = serverstub.signOut(token);
 	
-	alert(result.message);
+	setErrorMessage(result.message);
 	localStorage.removeItem("token");
 	loadView(token);
 
@@ -61,7 +68,7 @@ function validateLoginForm() {
 	
 	var result = serverstub.signIn(email, password);
 
-	alert(result.message);
+	setErrorMessage(result.message);
 	 
 	if(result.success == true) { 
 		localStorage.setItem("token", result.data);	 
@@ -90,12 +97,14 @@ function validateSignupForm() {
 
 		var result = serverstub.signUp(newUser);
 
-		alert(result.message);	 
+		setErrorMessage(result.message);	 
 		
 		//return true;
 	}
-	else
+	else {
+		setErrorMessage("Password is incorrect or less than 8 characters");
 		return false;
+	}
 
 	return false;
 }
@@ -103,7 +112,13 @@ function validateSignupForm() {
 function browseUser() {
 	var email = document.forms["browseUserForm"]["email"].value;
 	
-	var user = serverstub.getUserDataByEmail(localStorage.getItem("token"), email).data;
+	var result = serverstub.getUserDataByEmail(localStorage.getItem("token"), email);
+	
+	if (result.success == false) {
+		setErrorMessage("No user found");
+	}
+
+	var user = result.data;
 	
 	document.getElementById("firstname_b").innerHTML = user.firstname;
 	document.getElementById("lastname_b").innerHTML = user.familyname;

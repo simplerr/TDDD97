@@ -164,14 +164,24 @@ a:hover {
 }
 
 #nav_home {
-	color: black;
+	color: red;
 }
 
 #nav_browse {
-	color: black;
+	color: red;
 }
 
 #nav_account {
 	color: black;
+}
+
+#errormsg {
+	text-align: center;
+	margin: auto;
+	padding: 25px;
+	font-size: 24px;
+	font-weight: bold;
+	color: red;
+	float: center;
 }
 
